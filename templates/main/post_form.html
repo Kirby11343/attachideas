@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block post_form %}
+
+<div class="row p-5">
+  <div class="col-3">
+  </div>
+  <div class="col-6 text-center text-white">
+    <div class="content-section">
+      <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+          <legend border-bottom mb-4>Мастер публикаций</legend>
+          {{ form|crispy}}
+        </fieldset>
+        <div class="form-group">
+          <button class="btn btn-outline-danger" type="submit">Сохранить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-3">
+  </div>
+</div>
+
+  {% endblock %}

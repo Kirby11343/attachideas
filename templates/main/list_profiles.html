@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block profiles_list %}
+  {% block content %}
+      <div class="container-fluid">
+        <div class="row p-5">
+        <div class="col-12 text-center text-white">
+            <div class="infinite-container container-fluid">
+              <div class="row p-2">
+              {% for profile in profiles %}
+                <div class="infinite-item col mb-4">
+                  <img class="rounded-circle" src="{{ profile.image.url }}">
+                  <p> {{ profile.id }} </p>
+                </div>
+              {% endfor %}
+              </div>
+            </div>
+
+            <div class="loading" style="display: none;">
+              Loading...
+            </div>
+
+            {% if page_obj.has_next %}
+              <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+{% endblock %}    
+
+
+{% block scriptInfinite %}
+<script>
+  var infinite = new Waypoint.Infinite({
+  element: $('.infinite-container')[0],
+  onBeforePageLoad: function () {
+    $('.loading').show();
+  },
+  onAfterPageLoad: function ($items) {
+    $('.loading').hide();
+  }
+  });
+</script>
+{% endblock %} 
+{% endblock %}
+

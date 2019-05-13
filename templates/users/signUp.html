@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block sign %}
+
+<div class="row p-5">
+  <div class="col-3">
+  </div>
+  <div class="col-6 text-center text-white">
+    <div class="content-section">
+      <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+          <legend border-bottom mb-4>Регистрация аккаунта</legend>
+          {{ form|crispy}}
+        </fieldset>
+        <div class="form-group">
+          <button class="btn btn-outline-danger" type="submit">Подтвердить</button>
+        </div>
+      </form>
+      <div class="border-top pt-3">
+        <small class="text-muted">
+          У Вас уже есть аккаунт? <a class="ml-2" href="{% url 'login' %}">Авторизация</a>
+        </small>
+      </div>
+    </div>
+  </div>
+  <div class="col-3">
+  </div>
+</div>
+
+<!-- <form class="form-signin">
+  <div class="text-center mb-4">
+    <img class="mb-4" src="./Floating labels example · Bootstrap_files/bootstrap-solid.svg" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Test</h1>
+    <p>Description</p>
+  </div>
+
+  <div class="form-label-group">
+    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+    <label for="inputEmail">Email address</label>
+  </div>
+
+  <div class="form-label-group">
+    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+    <label for="inputPassword">Password</label>
+  </div>
+
+  <div class="checkbox mb-3">
+    <label>
+      <input type="checkbox" value="remember-me"> Remember me
+    </label>
+  </div>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  <p class="mt-5 mb-3 text-muted text-center">© 2019</p>
+</form> -->
+
+  {% endblock %}

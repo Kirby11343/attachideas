@@ -1,0 +1,1 @@
+web: gunicorn attachyourideas.wsgi

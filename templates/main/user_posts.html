@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+
+{% block grid %}
+<h1>Автор - {{ view.kwargs.username }} ({{ page_obj.paginator.count }})</h1>
+
+<div class="container-fluid">
+      <div class="row p-5">
+        <div class="col-12 text-center text-white">
+            <div class="container-fluid">
+              <div class="row p-2">
+
+            {% for post in posts %}
+                <div class="col mb-4">
+                    <div class="card bg-dark border-danger hovereffect" onclick="location.href='post/{{post.id}}';" style="width: 18rem; height: 24rem; overflow-y: auto">
+                      <img src="{{ post.author.profile.image.url }}" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title"> {{ post.title }} </h5>
+                        <p class="card-text">
+                          <img src="{{ post.author.profile.image.url }}" 
+                          style="width: auto; height: auto; max-width: 100px; max-height: 100px; border-radius: 50%;">
+                          <a href="{% url 'user_posts' post.author.username %}"><p> Author: {{ post.author }} </p></a>
+                          <p> Date: {{ post.date }}  ID {{post.id}} </p>
+                          <p> Content: {{ post.content }}</p>
+                        </p>
+                      </div>
+                    </div>
+                </div>
+            
+            {% endfor %}
+
+              </div>
+            {% if is_paginated %}
+              <div class="row p-2">
+                <div class="col mb-12">
+                  <nav aria-label="Page navigation example">
+                    <ul class="pagination pagination-lg justify-content-center">
+                      {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page=1">Начало</a></li>
+                        <li class="page-item">
+                          <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">Назад</a>
+                        </li>
+                      {% endif %}
+                      {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                          <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                        {% elif num > page_obj.number|add:'-4' and num < page_obj.number|add:'4' %}
+                          <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                      {% endfor %}
+                      {% if page_obj.has_next %}
+                        <li class="page-item">
+                          <a class="page-link" href="?page={{ page_obj.next_page_number }}" tabindex="-1" aria-disabled="true">Вперед</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Конец</a></li>
+                      {% endif %}
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            {% endif %}
+
+                 
+                      
+                    
+                
+            </div>
+
+        </div>
+      </div>
+</div>
+
+{% endblock %}
+

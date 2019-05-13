@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block login %}
+
+<div class="row p-5">
+  <div class="col-3">
+  </div>
+  <div class="col-6 text-center text-white">
+    <div class="content-section">
+      <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+          <legend border-bottom mb-4>Вход</legend>
+          {{ form|crispy}}
+        </fieldset>
+        <div class="form-group">
+          <button class="btn btn-outline-danger" type="submit">Подтвердить</button>
+          <small>
+            <p>
+              <a href="{% url 'password_reset' %}">Забыли пароль?</a>
+            </p>
+          </small>
+        </div>
+      </form>
+      <div class="border-top pt-3">
+        <small class="text-muted">
+          У Вас еще нет аккаунта? <a class="ml-2" href="{% url 'signup' %}">Регистрация</a>
+        </small>
+      </div>
+    </div>
+  </div>
+  <div class="col-3">
+  </div>
+</div>
+
+{% endblock %}

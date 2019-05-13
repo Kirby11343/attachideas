@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block post_detail %}
+
+<div class="container-fluid">
+      <div class="row p-5">
+        <div class="col-12 text-center text-white">
+            <div class="container-fluid">
+              <div class="row p-2">
+                <div class="col mb-4">
+                  <div class="card bg-dark border-danger hovereffect" style="width: 18rem; height: 24rem; overflow-y: auto">
+                    <img src="{{ post.author.profile.image.url }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title"> {{ object.title }} </h5>
+                      <p class="card-text">
+                        <img src="{{ object.author.profile.image.url }}" 
+                        style="width: auto; height: auto; max-width: 100px; max-height: 100px; border-radius: 50%;">
+                        <a href="{% url 'user_posts' object.author.username %}"><p> Author: {{ object.author }} </p></a>
+                        <p> Date: {{ object.date }} </p>
+                        <p> Content: {{ object.content }} </p>
+                      </p>
+                    </div>
+                  {% if object.author == user %}
+                      <div class="card-body">
+                        <a href="{% url 'post_update_master' object.id %}" class="card-link">Редактировать</a>
+                        <a href="{% url 'post_delete' object.id %}" class="card-link">Удалить</a>
+                      </div>
+                  {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        </div>
+      </div>
+</div>
+
+{% endblock %}
+

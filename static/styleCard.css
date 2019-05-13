@@ -1,0 +1,30 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollContent {
+	overflow-y: auto;
+}
+
+.hovereffect {
+    width: 50%;
+    height: 100%;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    cursor: default;
+}
+
+.hovereffect {
+    display: block;
+    position: relative;
+	-webkit-transition: -webkit-transform 0.35s;
+	transition: transform 0.35s;
+}
+
+.hovereffect:hover {
+-webkit-transform: translate3d(-1%,-1%,0);
+	transform: translate3d(-1%,-1%,0);
+	box-shadow: 7px 7px 30px #232323;
+}

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+
+<!-- <div class="container-fluid">
+	<div class="row">
+		<div class="col " style="background: url('file:///Users/username/Desktop/background.png')">
+    	</div>
+	</div>
+    <div class="row p-5">
+    	<div class="col-2">
+    	</div>
+        <div class="col-8 text-center text-white">
+		  <div class="content-section">
+		      <div class="media">
+		        <img class="rounded-circle" src="{{ object.user.profile.image.url }}">
+		        <div class="media-body">
+		          <h2 class="account-heading">{{ object.user.username }} {{ object.user.profile.id }}</h2>
+		          <p class="text-secondary">{{ object.user.email }}</p>
+		        </div>
+		      </div>
+		       <form method="POST" enctype="multipart/form-data">
+		          {% csrf_token %}
+		          <fieldset class="form-group">
+		              <legend class="border-bottom mb-4">Информация о профиле</legend>
+
+		          </fieldset>
+		          <div class="form-group">
+		              <button class="btn btn-outline-info" type="submit">Применить</button>
+		          </div>
+		      </form>
+		  </div>
+		</div>
+		<div class="col-2">
+		</div>
+	</div>
+</div> -->
+
+{% block profilePage %}
+<div class="container-fluid" style="background-image: url(https://i.imgur.com/uGMrAmR.png); height: 360px;">
+		<div class="row " style="height: 360px;">
+			<div class="col-4" style="padding-top: 60px;">
+				<!-- <img src="https://cdnb.artstation.com/p/users/avatars/000/689/923/large/450a5451caa62932634a4c6ae0685fac.jpg?1551729923" class="img-fluid float-right" alt="Avatar" style="border-radius: 50%;"> -->
+				<img class="rounded-circle img-fluid float-right" src="{{ object.user.profile.image.url }}">
+			</div>
+			<div class="col-4 text-white" style="padding-top: 60px;">
+				<h1>{{ object.user.username }} {{ object.user.profile.id }}</h1>
+				<h2>{{ object.user.email }}</h2>
+				<p>Description</p>
+				<p>Что-то еще</p>
+			</div>
+			<div class="col-4">
+				
+			</div>
+		</div> <!-- Image bg -->
+	</div>
+
+	<div class="container-fluid text-center bg-danger">
+		<div class="btn-group" role="group" aria-label="Basic example">
+		  <button type="button" class="btn btn-danger p-3">Подписчики</button>
+		  <button type="button" class="btn btn-danger p-3">Подписки</button>
+		  <button type="button" class="btn btn-danger p-3">Понравившиеся</button>
+		  <button type="button" class="btn btn-danger p-3">И тд</button>
+		</div>  <!-- Кнопки -->
+	</div>
+{% endblock %}
+
+{% block content %}
+      <div class="container-fluid">
+        <div class="row p-5">
+        <div class="col-12 text-center text-white">
+            <div class="infinite-container">
+              <div class="row p-2">
+              {% for post in posts %}
+                <div class="infinite-item col mb-4">
+                  <div class="card bg-dark border-danger hovereffect" onclick="location.href='{% url 'post_detail' post.id %}';" style="width: 18rem; height: 24rem; overflow-y: auto">
+                      <img src="{{ post.author.profile.image.url }}" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title"> {{ post.title }} </h5>
+                        <p class="card-text">
+                          <img src="{{ post.author.profile.image.url }}" 
+                          style="width: auto; height: auto; max-width: 100px; max-height: 100px; border-radius: 50%;">
+                          <a href="{% url 'user_posts' post.author.username %}"><p> Author: {{ post.author }} </p></a>
+                          <p> Date: {{ post.date }}  ID {{post.id}} </p>
+                          <p> Content: {{ post.content }}</p>
+                        </p>
+                      </div>
+                    </div>
+                </div>
+              {% endfor %}
+              </div>
+            </div>
+
+            <div class="loading" style="display: none;">
+              Loading...
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}    
