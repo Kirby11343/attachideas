@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '##i+#1-4t7-)s42(h%==0@h+30s$_i&uu3%bppto@e+)%9ybs*'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -70,6 +70,11 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+FILE_UPLOAD_HANDLERS = [
+    'django.core.files.uploadhandler.MemoryFileUploadHandler',
+    'django.core.files.uploadhandler.TemporaryFileUploadHandler',
 ]
 
 WSGI_APPLICATION = 'attachyourideas.wsgi.application'
@@ -149,5 +154,5 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 # EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
 # EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
-EMAIL_HOST_USER = 'attachyourideas@gmail.com'
-EMAIL_HOST_PASSWORD = 'blendHiki90pivuroSoulOut'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''

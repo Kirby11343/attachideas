@@ -49,12 +49,13 @@
 				<h2>{{ object.user.email }}</h2>
 				<p>Description</p>
 				<p>
-					<form method="POST">
+					<form method="POST" enctype="multipart/form-data">
 			        {% csrf_token %}
-			        <fieldset class="form-group">
-			          <legend border-bottom mb-4>Мастер профиля</legend>
-			          {{ form|crispy}}
-			        </fieldset>
+				        <fieldset class="form-group">
+				          <legend border-bottom mb-4>Мастер профиля</legend>
+				          {{ form|crispy}}
+				          
+				        </fieldset>
 			        <div class="form-group">
 			          <button class="btn btn-danger" type="submit">Сохранить</button>
 			        </div>

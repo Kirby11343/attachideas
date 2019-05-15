@@ -15,6 +15,7 @@
     <link rel="shortcut icon" href="{% static '/favicon.png' %}" type="image/png">
     <link rel="stylesheet" href="{% static '/style.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static '/styleCard.css' %}" type="text/css">
+    <link rel="stylesheet" href="https://fengyuanchen.github.io/cropperjs/css/cropper.css">
 
   </head>
 
@@ -25,7 +26,7 @@
 {% block navbar %}
  
  <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark border-bottom border-danger px-5">
-  <a class="navbar-brand" href="/"><h3><span class="badge badge-danger">AYI <sup>Alpha</sup></span></h3></a>
+  <a class="navbar-brand" href="/"><h3><span class="badge badge-danger">Attach Ideas</span></h3></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -57,13 +58,14 @@
       {% if user.is_authenticated %}
       <li class="nav-item dropdown">
         <div class="btn-group dropdown">
-          <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            ...
+          <button type="button" class="btn btn-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img class="rounded-circle img-fluid border border-danger" src="{{ user.profile.image.url }}" width="90" height="90">
           </button>
           <div class="dropdown-menu dropdown-menu-right">
             <!-- Dropdown menu links -->
-            <a class="dropdown-item" href="{% url 'profile' pk=user.profile.id %}">Профиль <span class="sr-only">(current)</span></a>
+            <a class="dropdown-item" href="{% url 'profile' pk=user.profile.id %}">Профиль<span class="sr-only">(current)</span></a>
             <a class="dropdown-item" href="{% url 'profile_edit' pk=user.profile.id %}">Редактировать <span class="sr-only">(current)</span></a>        
+            <a class="dropdown-item" href="{% url 'logout' %}">Выход <span class="sr-only">(current)</span></a>   
             <button class="dropdown-item" type="button">Something else here</button>
           </div>
         </div>
@@ -101,8 +103,8 @@
   {% block post_form %} {% endblock %}
   {% block post_delete %} {% endblock %}  
   {% block profiles_list %} {% endblock %}
+  {% block user-content %} {% endblock %}
 
-  <a align="middle" href="/"><h3><span class="badge badge-danger">HOME PAGE</span></h3></a>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -113,5 +115,30 @@
     <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
     <script src="{% static 'js/infinite.min.js' %}"></script>
     {% block scriptInfinite %} {% endblock %}  
+
+    <script src="https://fengyuanchen.github.io/cropperjs/js/cropper.js"></script>
+      <script>
+        window.addEventListener('DOMContentLoaded', function () {
+          var image = document.getElementById('image');
+          var cropBoxData;
+          var canvasData;
+          var cropper;
+
+          $('#modal').on('shown.bs.modal', function () {
+            cropper = new Cropper(image, {
+              autoCropArea: 0.5,
+              ready: function () {
+                //Should set crop box data first here
+                cropper.setCropBoxData(cropBoxData).setCanvasData(canvasData);
+              }
+            });
+          }).on('hidden.bs.modal', function () {
+            cropBoxData = cropper.getCropBoxData();
+            canvasData = cropper.getCanvasData();
+            cropper.destroy();
+          });
+        });
+    </script>
+
   </body>
 </html>

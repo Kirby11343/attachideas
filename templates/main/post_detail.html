@@ -2,7 +2,7 @@
 
 {% block post_detail %}
 
-<div class="container-fluid">
+<!-- <div class="container-fluid">
       <div class="row p-5">
         <div class="col-12 text-center text-white">
             <div class="container-fluid">
@@ -15,7 +15,7 @@
                       <p class="card-text">
                         <img src="{{ object.author.profile.image.url }}" 
                         style="width: auto; height: auto; max-width: 100px; max-height: 100px; border-radius: 50%;">
-                        <a href="{% url 'user_posts' object.author.username %}"><p> Author: {{ object.author }} </p></a>
+                        <a href=""><p> Author: {{ object.author }} </p></a>
                         <p> Date: {{ object.date }} </p>
                         <p> Content: {{ object.content }} </p>
                       </p>
@@ -33,7 +33,23 @@
 
         </div>
       </div>
-</div>
+</div> -->
 
+<div class="container-fluid">
+      <div class="row p-5">
+        <div class="col-9 text-center text-white">
+           <img src="{{ post.image.url }}" 
+                        style="width: auto; height: auto; max-width: 100px; max-height: 100px;">
+        </div>
+        <div class="col-3 text-center text-white border-left border-danger"  style="overflow-y: auto">
+          {% if object.author == user %}
+          <div>
+            <a href="{% url 'post_update_master' object.id %}" class="card-link">Редактировать</a>
+            <a href="{% url 'post_delete' object.id %}" class="card-link">Удалить</a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+</div>
 {% endblock %}
 

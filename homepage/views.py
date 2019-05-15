@@ -20,20 +20,10 @@ class PostListView(ListView):
     ordering = ['-date']
     paginate_by = 5
 
-class UserPostListView(ListView): #sort by Username
-    model = Post
-    template_name = 'main/user_posts.html' # type of path: <app>/<model>_<viewtype>.html
-    context_object_name = 'posts'
-    ordering = ['-date']
-    paginate_by = 5
-
-    def get_queryset(self):
-        user = get_object_or_404(User, username=self.kwargs.get('username'))
-        return Post.object.filter(author=user).order_by('-date.posted')
-
 class PostDetailView(DetailView):
     model = Post
     template_name = 'main/post_detail.html'
+
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
@@ -68,3 +58,13 @@ class PostDeleteView(LoginRequiredMixin,  UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
+
+class UserPostListView(ListView): #sort by Username
+    model = Post
+    context_object_name = 'posts'
+    ordering = ['-date']
+    paginate_by = 5
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Post.objects.filter(author=user).order_by('-date.posted')
