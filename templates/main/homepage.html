@@ -6,9 +6,8 @@
         <div class="row p-5">
         <div class="col-12 text-center text-white">
             <div class="infinite-container container-fluid" style="display: flex; flex-flow: row wrap; justify-content: center;">
-           	{% for post in posts %}
-              <div class="row p-4">
-                <div class="infinite-item col-md-3">
+            {% for post in posts %}
+                <div class="infinite-item" style="margin: 20px">
                   <div class="card bg-dark border-danger hovereffect" onclick="location.href='{% url 'post_detail' post.id %}';" style="width: 18rem; height: 24rem; overflow-y: auto">
                       <img src="{{ post.image.url }}" class="card-img-top" alt="...">
                       <div class="card-body">
@@ -23,7 +22,6 @@
                       </div>
                     </div>
                 </div>
-              </div>
             {% endfor %}
             </div>
 

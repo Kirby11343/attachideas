@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Post
 
+
 # def mainPage(request):
 #     context = {
 #         'posts': Post.objects.all()
@@ -18,7 +19,7 @@ class PostListView(ListView):
     template_name = 'main/homepage.html' # type of path: <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
     ordering = ['-date']
-    paginate_by = 5
+    paginate_by = 15
 
 class PostDetailView(DetailView):
     model = Post
@@ -59,12 +60,12 @@ class PostDeleteView(LoginRequiredMixin,  UserPassesTestMixin, DeleteView):
             return True
         return False
 
-class UserPostListView(ListView): #sort by Username
-    model = Post
-    context_object_name = 'posts'
-    ordering = ['-date']
-    paginate_by = 5
+# class UserPostListView(ListView): #sort by Username
+#     model = Post
+#     context_object_name = 'posts'
+#     ordering = ['-date']
+#     paginate_by = 5
 
-    def get_queryset(self):
-        user = get_object_or_404(User, username=self.kwargs.get('username'))
-        return Post.objects.filter(author=user).order_by('-date.posted')
+#     def get_queryset(self):
+#         user = get_object_or_404(User, username=self.kwargs.get('username'))
+#         return Post.objects.filter(author=user).order_by('-date.posted')
