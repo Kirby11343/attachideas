@@ -5,7 +5,6 @@ from django.urls import reverse
 from PIL import Image
 import os
 import datetime
-from filebrowser.fields import FileBrowseField
 
 
 class Post(models.Model):
@@ -27,5 +26,3 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('post_detail', kwargs={'pk': self.pk})
-
-

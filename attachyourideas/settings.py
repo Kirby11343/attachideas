@@ -26,7 +26,7 @@ SECRET_KEY = 'dfqwefqwfeg23521#@$ffhfghgjhmj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1",]
 
 
 # Application definition
@@ -34,6 +34,9 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'homepage.apps.HomepageConfig',
+    'chat.apps.ChatConfig',
+    'channels',
+    'notifier',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -78,6 +81,18 @@ FILE_UPLOAD_HANDLERS = [
 ]
 
 WSGI_APPLICATION = 'attachyourideas.wsgi.application'
+ASGI_APPLICATION = 'attachyourideas.routing.application'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+
+        },
+    },
+}
+
 
 
 # Database

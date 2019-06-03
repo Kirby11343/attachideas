@@ -20,11 +20,13 @@ from users import views as user_views
 from django.conf import settings
 from django.conf.urls.static import static
 from filebrowser.sites import site
+from django.contrib.auth.models import User
 
 
 urlpatterns = [
 	path('', include('homepage.urls'), name='homepage'),
     path('', include('users.urls'), name='users'),
+    path('chat/', include('chat.urls'), name='chat'),
     path('admin/', admin.site.urls),
     path('signup/', user_views.signUp, name="signup"),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name="login"),

@@ -1,14 +1,14 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html lang="en">
   <head>
     {% block head %}
-    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>AttachYourIdeas</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+    <title>AttachIdeas</title>
     {% endblock %}
 
     {% load static %}
@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{% static '/style.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static '/styleCard.css' %}" type="text/css">
     <link rel="stylesheet" href="https://fengyuanchen.github.io/cropperjs/css/cropper.css">
+    
 
   </head>
 
@@ -44,6 +45,9 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'post_master' %}">Создать публикацию</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/chat/">Чат</a>
+        </li>
       {% else %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'signup' %}">Регистрация</a>
@@ -59,10 +63,9 @@
       <li class="nav-item dropdown">
         <div class="btn-group dropdown">
           <button type="button" class="btn btn-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img class="rounded-circle border border-danger" src="{{ user.profile.image.url }}" width="50" height="50">
+            <img class="rounded-circle border border-danger" src="{{ user.profile.image.url }}" width="75">
           </button>
           <div class="dropdown-menu dropdown-menu-right">
-            <!-- Dropdown menu links -->
             <a class="dropdown-item" href="{% url 'profile' pk=user.profile.id %}">Профиль<span class="sr-only">(current)</span></a>
             <a class="dropdown-item" href="{% url 'profile_edit' pk=user.profile.id %}">Редактировать <span class="sr-only">(current)</span></a>        
             <a class="dropdown-item" href="{% url 'logout' %}">Выход <span class="sr-only">(current)</span></a>   
@@ -104,6 +107,7 @@
   {% block post_delete %} {% endblock %}  
   {% block profiles_list %} {% endblock %}
   {% block user-content %} {% endblock %}
+  {% block chat %} {% endblock %}
 
 
     <!-- Optional JavaScript -->
@@ -114,6 +118,8 @@
     <script src="{% static 'js/jquery-3.4.0.min.js' %}"></script>
     <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
     <script src="{% static 'js/infinite.min.js' %}"></script>
+
+ 
     {% block scriptInfinite %} {% endblock %}  
 
     <script src="https://fengyuanchen.github.io/cropperjs/js/cropper.js"></script>
