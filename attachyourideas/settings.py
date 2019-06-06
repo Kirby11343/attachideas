@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     'homepage.apps.HomepageConfig',
     'chat.apps.ChatConfig',
     'channels',
-    'notifier',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -87,8 +86,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("redis-server-name", 6379)],
-
+            "hosts": [("127.0.0.1", 6379)],
         },
     },
 }

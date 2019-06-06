@@ -10,7 +10,7 @@ import datetime
 class Post(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
-    date = models.DateTimeField(default=timezone.now)
+    date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField(default='post_pics/default.jpg', upload_to='post_pics')
     id = models.AutoField(primary_key=True)
@@ -26,3 +26,17 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('post_detail', kwargs={'pk': self.pk})
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    comment_text = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    id = models.AutoField(primary_key=True)
+
+    def __str__(self):
+        return "Comment by {user} to post {post}".format(user=self.author.username, post=self.post.title)
+    
+    def get_comment_text(self):
+        return self.comment_text

@@ -26,27 +26,6 @@ def signUp(request):
 		form = UserRegisterForm()
 	return render(request, 'users/signUp.html', {'form': form})
 
-# @login_required
-# def profile(request):
-# 	if request.method == 'POST':
-# 		u_form = UserUpdateForm(request.POST, instance=request.user)
-# 		p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
-# 		if u_form.is_valid() and p_form.is_valid():
-# 			u_form.save()
-# 			p_form.save()
-# 			messages.success(request, f'Изменения пришли в силу.')
-# 			return redirect('profile')
-# 	else:
-# 		u_form = UserUpdateForm(instance=request.user)
-# 		p_form = ProfileUpdateForm(instance=request.user.profile)
-
-# 	context = {
-# 		'u_form': u_form,
-# 		'p_form': p_form
-# 	}
-
-# 	return render(request, 'users/profile.html', context)
-
 class ProfileListView(ListView):
     model = Profile
     template_name = 'main/list_profiles.html' # type of path: <app>/<model>_<viewtype>.html
@@ -59,8 +38,6 @@ class ProfileDetailView(DetailView):
     template_name = 'users/profile.html'
 
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-
         field_name = 'id'
         obj = self.get_object()
         field_object = Profile._meta.get_field(field_name)

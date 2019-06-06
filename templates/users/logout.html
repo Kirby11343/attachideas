@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 
 {% block logout %}
-<h1>Вы вышли из аккаунта.</h1>
-<div class="border-top pt-3">
-        <small class="text-muted">
-          <a href="{% url 'login' %}">Авторизация</a>
-        </small>
-      </div>
+
+<div class="jumbotron text-center text-white bg-dark">
+  <h1 class="display-4">Вы вышли из аккаунта</h1>
+  <p class="lead">
+        <a href="{% url 'login' %}">Авторизация</a> <-->
+        <a href="{% url 'signup' %}">Регистрация</a>
+  </p>
+</div>
 
 {% endblock %}

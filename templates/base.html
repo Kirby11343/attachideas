@@ -40,9 +40,6 @@
     <ul class="navbar-nav mr-auto ">
       {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'logout' %}">Выход <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="{% url 'post_master' %}">Создать публикацию</a>
         </li>
         <li class="nav-item">
@@ -69,7 +66,6 @@
             <a class="dropdown-item" href="{% url 'profile' pk=user.profile.id %}">Профиль<span class="sr-only">(current)</span></a>
             <a class="dropdown-item" href="{% url 'profile_edit' pk=user.profile.id %}">Редактировать <span class="sr-only">(current)</span></a>        
             <a class="dropdown-item" href="{% url 'logout' %}">Выход <span class="sr-only">(current)</span></a>   
-            <button class="dropdown-item" type="button">Something else here</button>
           </div>
         </div>
       </li>
@@ -118,33 +114,10 @@
     <script src="{% static 'js/jquery-3.4.0.min.js' %}"></script>
     <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
     <script src="{% static 'js/infinite.min.js' %}"></script>
+  
 
- 
+    {% block post_detail_websocket %} {% endblock %} 
     {% block scriptInfinite %} {% endblock %}  
-
-    <script src="https://fengyuanchen.github.io/cropperjs/js/cropper.js"></script>
-      <script>
-        window.addEventListener('DOMContentLoaded', function () {
-          var image = document.getElementById('image');
-          var cropBoxData;
-          var canvasData;
-          var cropper;
-
-          $('#modal').on('shown.bs.modal', function () {
-            cropper = new Cropper(image, {
-              autoCropArea: 0.5,
-              ready: function () {
-                //Should set crop box data first here
-                cropper.setCropBoxData(cropBoxData).setCanvasData(canvasData);
-              }
-            });
-          }).on('hidden.bs.modal', function () {
-            cropBoxData = cropper.getCropBoxData();
-            canvasData = cropper.getCanvasData();
-            cropper.destroy();
-          });
-        });
-    </script>
 
   </body>
 </html>

@@ -1,55 +1,86 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block post_detail %}
-
-<!-- <div class="container-fluid">
-      <div class="row p-5">
-        <div class="col-12 text-center text-white">
-            <div class="container-fluid">
-              <div class="row p-2">
-                <div class="col mb-4">
-                  <div class="card bg-dark border-danger hovereffect" style="width: 18rem; height: 24rem; overflow-y: auto">
-                    <img src="{{ post.author.profile.image.url }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title"> {{ object.title }} </h5>
-                      <p class="card-text">
-                        <img src="{{ object.author.profile.image.url }}" 
-                        style="width: auto; height: auto; max-width: 100px; max-height: 100px; border-radius: 50%;">
-                        <a href=""><p> Author: {{ object.author }} </p></a>
-                        <p> Date: {{ object.date }} </p>
-                        <p> Content: {{ object.content }} </p>
-                      </p>
-                    </div>
-                  {% if object.author == user %}
-                      <div class="card-body">
-                        <a href="{% url 'post_update_master' object.id %}" class="card-link">Редактировать</a>
-                        <a href="{% url 'post_delete' object.id %}" class="card-link">Удалить</a>
-                      </div>
-                  {% endif %}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-        </div>
-      </div>
-</div> -->
 
 <div class="container-fluid">
       <div class="row p-5">
-        <div class="col-10 text-center text-white">
-           <img src="{{ post.image.url }}" 
+        <div class="col-9 text-center text-white">
+           <img class='img-fluid border border-danger' src="{{ post.image.url }}" 
                         style="width: auto; height: auto;">
         </div>
-        <div class="col-2 text-right text-white border-left border-danger"  style="overflow-y: auto">
-          {% if object.author == user %}
-          <div>
-            <a href="{% url 'post_update_master' object.id %}" class="card-link">Редактировать</a>
-            <a href="{% url 'post_delete' object.id %}" class="card-link">Удалить</a>
+        <div class="col-3 text-right text-white border-left border-danger">
+          <div class="card text-white bg-dark mb-3 border-danger">
+            <div class="card-body">
+              <h5 class="card-title"><img class="rounded-circle border border-danger" src="{{ post.author.profile.image.url }}" width="48" height="48"> {{ object.author }}</h5><hr style="background: #dc3545">
+              <h4 class="card-subtitle mb-2">{{ object.title }}</h4>
+              <p class="card-text">{{ object.content }} <br><small style="color: #dc3545">{{ object.date|date:'Y-m-d H:i' }}</small></p>
+            {% if object.author == user %}
+            <a href="{% url 'post_update_master' object.id %}" class="badge badge-danger">Редактировать</a>
+            <a href="{% url 'post_delete' object.id %}" class="badge badge-danger">Удалить</a>
+            {% endif %}
+            </div>
           </div>
+          <br>
+          <div id="comments">
+          {% for comment in post.comments.all %}
+          <div class="card border-danger mb-3 text-white bg-dark" style="max-width: 18rem;">
+            <div class="card-header d-flex justify-content-start text-white"><img class="rounded-circle border border-danger" src="{{ user.profile.image.url }}" width="32" height="32"><h6>{{ comment.author }}</h6></div>
+            <div class="card-body text-danger p-2 text-white">
+              <p class="card-text text-white" style="text-align:left; font-size: small;">{{ comment.comment_text }}</p>
+              <small><p>{{ comment.timestamp|date:'Y-m-d H:i' }}</p></small>
+            </div>
+          </div>
+          {% endfor %}
+          </div>
+          {% if user.is_authenticated %}
+          <form method="POST" id="comment-input">
+          {% csrf_token %}
+          <div class="input-group">
+              <input type="hidden", id="user" data-post="{{ post.id }}" value="{{ request.user.username }}">
+              <textarea id="comment-area" class="form-control custom-control" rows="3"></textarea>     
+              <button type="submit" value="Submit" class="d-flex align-items-center input-group-addon btn btn-outline-danger"><img src="{% static '/icons/send.svg' %}" alt="Отправить" style="height: 32px; width: 32px"></button>
+          </div>
+          </form>
           {% endif %}
         </div>
       </div>
 </div>
 {% endblock %}
+{% block post_detail_websocket %}
+<script>
+      
+      var socket_url = 'ws://' + window.location.host + window.location.pathname
+      console.log(socket_url)
 
+      var socket = new WebSocket(socket_url)
+
+      socket.onmessage = function(event){
+          console.log(event)
+          var newComment = JSON.parse(event.data)
+          $('#comments').append('<div class="card border-danger mb-3 text-white bg-dark" style="max-width: 18rem;"><div class="card-header d-flex justify-content-start text-white"><img class="rounded-circle border border-danger" src="{{ user.profile.image.url }}" width="32" height="32"><h6>' + newComment.author + '</h6></div><div class="card-body text-danger p-2 text-white"><p class="card-text text-white" style="text-align:left; font-size: small;">' + newComment.comment_text + '</p><small><p>Только что</p></small></div></div>')
+      }
+
+      socket.onopen = function(event){
+          console.log('socket opened', event)
+          var form = $("#comment-input")
+          form.submit(function(e){
+            e.preventDefault()
+            var comment_text = $('#comment-area').val()
+            var post_id = $('#user').attr('data-post')
+            var author = $('#user').val()
+            console.log(comment_text)
+            data = {
+              'comment_text': comment_text,
+              'post_id': post_id,
+              'author': author,
+            }
+            socket.send(JSON.stringify(data))
+          })
+      }
+
+      socket.onclose = function(event){
+        console.log('socket closed', event)
+      }
+
+</script>
+{% endblock %}
