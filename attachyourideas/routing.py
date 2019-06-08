@@ -15,8 +15,3 @@ application = ProtocolTypeRouter({
     ),
 })
 
-
-
-channel_routing = {
-
-}
