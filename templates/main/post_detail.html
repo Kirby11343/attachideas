@@ -14,6 +14,9 @@
               <h5 class="card-title"><img class="rounded-circle border border-danger" src="{{ post.author.profile.image.url }}" width="48" height="48"> {{ object.author }}</h5><hr style="background: #dc3545">
               <h4 class="card-subtitle mb-2">{{ object.title }}</h4>
               <p class="card-text">{{ object.content }} <br><small style="color: #dc3545">{{ object.date|date:'Y-m-d H:i' }}</small></p>
+              <form action="" method="POST" accept-charset="utf-8" id='like'>
+                <button type="submit" value="Submit" class="d-flex align-items-center input-group-addon btn btn-outline-danger"><img src="{% static '/icons/send.svg' %}" alt="Отправить" style="height: 32px; width: 32px"></button>
+              </form>
             {% if object.author == user %}
             <a href="{% url 'post_update_master' object.id %}" class="badge badge-danger">Редактировать</a>
             <a href="{% url 'post_delete' object.id %}" class="badge badge-danger">Удалить</a>

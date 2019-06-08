@@ -13,6 +13,7 @@ class Post(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField(default='post_pics/default.jpg', upload_to='post_pics')
+    likes = models.ManyToManyField(User, related_name='likes', blank=True)
     id = models.AutoField(primary_key=True)
 
     def save(self, *args, **kwargs):
