@@ -15,7 +15,11 @@
               <h4 class="card-subtitle mb-2">{{ object.title }}</h4>
               <p class="card-text">{{ object.content }} <br><small style="color: #dc3545">{{ object.date|date:'Y-m-d H:i' }}</small></p>
               <form action="" method="POST" accept-charset="utf-8" id='like'>
-                <button type="submit" value="Submit" class="d-flex align-items-center input-group-addon btn btn-outline-danger"><img src="{% static '/icons/send.svg' %}" alt="Отправить" style="height: 32px; width: 32px"></button>
+                {% csrf_token %}
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button type="submit" value="Submit" class="d-flex align-items-center input-group-addon btn btn-outline-danger"><img src="{% static '/icons/like.svg' %}" alt="Отправить" style="height: 32px; width: 32px"></button>
+                  <button type="submit" value="Submit" class="d-flex align-items-center input-group-addon btn btn-outline-danger"><img src="{% static '/icons/dislike.svg' %}" alt="Отправить" style="height: 32px; width: 32px"></button>
+              </div>
               </form>
             {% if object.author == user %}
             <a href="{% url 'post_update_master' object.id %}" class="badge badge-danger">Редактировать</a>
