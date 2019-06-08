@@ -1,1 +1,1 @@
-daphne: daphne attachyourideas.asgi:application --port $PORT --bind 0.0.0.0 -v2 
+daphne: daphne attachyourideas.asgi:channel_layer --port $PORT --bind 0.0.0.0 -v2 
