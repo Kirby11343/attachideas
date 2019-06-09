@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -168,5 +169,13 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 # EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
 # EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = 'attachyourideas@gmail.com'
+EMAIL_HOST_PASSWORD = 'blendHiki90pivuroSoulOut'
+
+AWS_ACCESS_KEY_ID = 'AKIAX73QYCGVT43K5X2A'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'attachideas'
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
