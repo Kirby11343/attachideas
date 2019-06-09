@@ -16,11 +16,11 @@ class Post(models.Model):
     likes = models.ManyToManyField(User, related_name='likes', blank=True)
     id = models.AutoField(primary_key=True)
 
-    # def save(self, *args, **kwargs):
-    #     super().save(*args, **kwargs)
-    #     img = Image.open(self.image.path)
-    #     img = img.convert("RGB")
-    #     img.save(self.image.path)
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        img = Image.open(self.image.path)
+        img = img.convert("RGB")
+        img.save(self.image.path)
 
     def __str__(self):
         return self.title
