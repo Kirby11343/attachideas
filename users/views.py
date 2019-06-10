@@ -30,7 +30,7 @@ class ProfileListView(ListView):
     model = Profile
     template_name = 'main/list_profiles.html' # type of path: <app>/<model>_<viewtype>.html
     context_object_name = 'profiles'
-    ordering = ['-date']
+    ordering = ['date']
     paginate_by = 15
 
 class ProfileDetailView(DetailView):

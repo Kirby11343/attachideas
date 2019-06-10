@@ -1,23 +1,26 @@
 {% extends "base.html" %}
 
 {% block profiles_list %}
-  {% block content %}
       <div class="container-fluid">
         <div class="row p-5">
         <div class="col-12 text-center text-white">
-            <div class="infinite-container container-fluid">
-              <div class="row p-2">
-              {% for profile in profiles %}
-                <div class="infinite-item col mb-4">
-                  <img class="rounded-circle" src="{{ profile.image.url }}">
-                  <p> {{ profile.id }} </p>
+            <div class="infinite-container container-fluid" style="display: flex; flex-flow: row wrap; justify-content: center;">
+            {% for profile in profiles %}
+                <div class="infinite-item" style="margin: 20px">
+                  <div class="infinite-item col mb-4">
+                    <a href="{% url 'profile' profile.id %}"><img class="rounded-circle" src="{{ profile.image.url }}">
+                  </div>
+                  <h1>{{ profile.user.username }}</h1></a>
                 </div>
-              {% endfor %}
-              </div>
+            {% endfor %}
             </div>
 
             <div class="loading" style="display: none;">
-              Loading...
+              <div class="text-center">
+                <div class="spinner-border text-danger " style="width: 4rem; height: 4rem;" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
             </div>
 
             {% if page_obj.has_next %}
@@ -42,5 +45,4 @@
   });
 </script>
 {% endblock %} 
-{% endblock %}
 
