@@ -124,10 +124,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/2.1/topics/i18n/
-
 LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
@@ -139,12 +135,11 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
 
-# STATIC_URL = '/static/'
+STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# MEDIA_URL = '/media/'
+MEDIA_URL = '/media/'
 THUMBNAIL_DEBUG = False
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -167,22 +162,22 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
-# EMAIL_HOST_USER = 'attachyourideas@gmail.com'
-# EMAIL_HOST_PASSWORD = 'blendHiki90pivuroSoulOut'
+# EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+EMAIL_HOST_USER = 'attachyourideas@gmail.com'
+EMAIL_HOST_PASSWORD = 'blendHiki90pivuroSoulOut'
 
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_KID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SK')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_BN')
+# AWS_ACCESS_KEY_ID = os.environ.get('AWS_KID')
+# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SK')
+# AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_BN')
 
 # AWS_ACCESS_KEY_ID = 'AKIAX73QYCGVT43K5X2A'
 # AWS_SECRET_ACCESS_KEY = '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'
 # AWS_STORAGE_BUCKET_NAME = 'attachideas'
 
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_DEFAULT_ACL = None
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-STATIC_URL = 'https://s3.amazonaws.com:443/%s/static/' % AWS_STORAGE_BUCKET_NAME
-MEDIA_URL = 'https://s3.amazonaws.com:443/%s/media/' % AWS_STORAGE_BUCKET_NAME
+# STATIC_URL = 'https://s3.amazonaws.com:443/%s/static/' % AWS_STORAGE_BUCKET_NAME
+# MEDIA_URL = 'https://s3.amazonaws.com:443/%s/media/' % AWS_STORAGE_BUCKET_NAME
